@@ -27,7 +27,7 @@ def bin_to_hex(a):
         if(hexDict[i] == a):
             return i
 
-def xor_string(a,b):
+def xor_bit(a,b):
     if (a!=b):
         return '1'
     else:
@@ -52,7 +52,7 @@ for i in range(len(hex_string_2)):
 #print(bin_string_2)
 
 for i in range (len(bin_string_1)):
-    bin_string_total += xor_string(bin_string_1[i], bin_string_2[i])
+    bin_string_total += xor_bit(bin_string_1[i], bin_string_2[i])
 
 #print(bin_string_total)
 

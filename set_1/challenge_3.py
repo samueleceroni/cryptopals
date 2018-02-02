@@ -6,6 +6,9 @@ temp_string_bin = ''
 string_char = ''
 bin_char=''
 
+score = {}
+bestscore =-1
+bestkey = -1
 
 def to_binary(a):
     bin_a=bin(a)
@@ -34,12 +37,14 @@ def xor_bit(a,b):
     else:
         return '0'
 
-#decode hex string to bin
-for i in range(len(hex_string_1)):
-    bin_string_1 += hex_to_bin(hex_string_1[i])
 
+def decipher(hex_string_1, num):
+    tempscore = 0
+    bin_string_1 = ''
+    #decode hex string to bin
+    for i in range(len(hex_string_1)):
+        bin_string_1 += hex_to_bin(hex_string_1[i])
 
-for num in range (255):
     bin_string_2= ''
     bin_string_total = ''
     temp_string_bin = ''
@@ -60,6 +65,32 @@ for num in range (255):
             string_char += chr(int(temp_string_bin, 2)) 
             temp_string_bin = ''
 
+    for letter in range(len(string_char)):
+        if string_char[letter] == 'a':
+            tempscore+=8
+        elif string_char[letter] == 'e':
+            tempscore+=13
+        elif string_char[letter] == 'i':
+            tempscore+=7
+        elif string_char[letter] == 't':
+            tempscore+=9
+        elif string_char[letter] == 'o':
+            tempscore+=8
+        elif string_char[letter] == 'n':
+            tempscore+=7
 
-    print(chr(int(bin_char, 2)) + ' : ' + string_char)
-    string_char = ''
+    score[str(num)] = tempscore
+
+    return str (chr(int(bin_char, 2)) + ' : ' + string_char)
+
+
+
+for num in range (128):
+    decipher(hex_string_1, num)
+
+for num in score:
+    if score[num] > bestscore:
+        bestscore = score[num]
+        bestkey = num
+
+print(decipher(hex_string_1, int(bestkey)))
